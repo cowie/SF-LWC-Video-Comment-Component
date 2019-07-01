@@ -31,7 +31,7 @@ Second, you'll need the overall workflow of creating videos to be added, right? 
 Next, you could probably add some more testing into the component. Good news is it's 90% client side rendering changes, and only 10% writing data, and that 10% is pretty basic. Get page's recordID, relate child object to it, rinse, repeat. This means the testing and failure points should be pretty minimal, UX stuff.
 
 ## What can I learn from this sucker?
-###Video Component Controller
+### Video Component Controller
 * Note the two functions doing basically the same thing. You might be like - what do? So reason here is I wanted to remove the cache from the call that happens when a new comment is inserted, to update. I could have just not touched the server, and instead just edited the local comment list object in client memory, but then you're losing out on any changes others are making. You can't remove the cache from a method wired into a property, so we have one wire version, and one imperative version. Fun times!
 ### JS controller
 * wiredVideoRecord and getVideoComments show you wiring both an LDS standard function as well as a custom Apex one. Note the imports on lines 5 and 8. Also, note the specificity in passing variables here. Both take in objects, named against the variables in the Apex method, js variable is prepended by `$` and named as a string, not in `this.variable` format. The field being passed in line 27 is gained from line 6's import - but as a string, this iirc renders out to `Video__c.Video__URL__c`, so you *could* pass the thing dynamically/statically if you wanted by following that `object.field` notation. 
