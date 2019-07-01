@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="videoURLField" type="string" />
+    <c:videoComponentLWC videoURL="https://embed-cdn.ziggeo.com/v1/applications/1d44c06c2808eb45677df156aee7503a/videos/708aa5b5c2b3d06331e3f05f3bb49736/video.mp4"/>
+</aura:component>

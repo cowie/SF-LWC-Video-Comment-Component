@@ -1,0 +1,55 @@
+<template>
+    <div class="c-container">
+        <lightning-layout >
+            <lightning-layout-item size="6">
+                <div class="videoHolder"></div>
+            </lightning-layout-item>
+            <lightning-layout-item  size="6">
+                <div class="slds-m-around_medium">
+                    <lightning-input onchange={commentChange} id="txtComment" name="txtComment" label="Comment" placeholder="Your comment here..." value={newComment}></lightning-input>
+                    <lightning-button variant="Neutral" label="Submit" title="Submit Action" onclick={submitComment} class="slds-m-left_x-small"></lightning-button>
+                </div>
+                <div>
+                    <ul class="slds-timeline" id="commentList">
+                        <template for:each={commentsList} for:item="videoComment">
+                                <li key={videoComment.id} data-comment-id={videoComment.id}>
+                                        <div class="slds-timeline__item_expandable slds-timeline__item_call">
+                                            <div class="slds-media">
+                                            <div class="slds-media__figure">
+                                                <button class="slds-button slds-button_icon" title="" aria-controls="call-item-base">
+                                                <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                </svg>
+                                                </button>
+                                                <div class="slds-icon_container slds-icon-standard-log-a-call slds-timeline__icon" title="call">
+                                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                </svg>
+                                                </div>
+                                            </div>
+                                            <div class="slds-media__body">
+                                                <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                                <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                    <h3 class="slds-truncate" title="">
+                                                        {videoComment.Comment_Body__c}
+                                                    </h3>
+                                                </div>
+                                                <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                    <a onclick={gotoTimecode} data-timecode={videoComment.Time_In_Seconds__c}>
+                                                        <p data-timecode={videoComment.Time_In_Seconds__c} class="slds-timeline__date">{videoComment.Timecode__c}</p>
+                                                    </a>
+                                                </div>
+                                                </div>
+                                                <p class="slds-m-horizontal_xx-small">
+                                                <a href="javascript:void(0);">{videoComment.CreatedBy.Name}</a>
+                                                </p>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                        </template>
+                    </ul>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        v.9
+    </div>
+</template>
