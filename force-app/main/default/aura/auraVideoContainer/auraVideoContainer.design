@@ -1,3 +1,0 @@
-<design:component>
-    <design:attribute name="videoURLField" description="The API/Field name that contains the video URL" />
-</design:component>

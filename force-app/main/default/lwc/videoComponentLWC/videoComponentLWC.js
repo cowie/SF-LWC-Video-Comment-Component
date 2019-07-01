@@ -24,11 +24,8 @@ export default class VideoComponentLWC extends LightningElement {
     @track apexError;
     @api videoURL;
     
-    @wire(getRecord, {recordId: '$recordId', fields:['Video__c.Video_URL__c']})
+    @wire(getRecord, {recordId: '$recordId', fields:[VIDEO_URL_FIELD]})
     wiredVideoRecord({error, data}){
-        console.log(`vidrec: ${this.recordId} ${VIDEO_URL_FIELD}`);
-        console.log(data);
-        console.log(error);
         if(data){
             this.videoURL = data.fields.Video_URL__c.value;
             const src = document.createElement('source');
@@ -98,15 +95,35 @@ export default class VideoComponentLWC extends LightningElement {
                         this.newComment = '';
                     })
                     .catch(error => {
-                        console.log('error w vc get');
-                        console.log(error);
-                        this.apexError = error;
-                        this.commentsList = undefined;
+                        let message= 'Something blew up';
+                        if(Array.isArray(error.body)) { 
+                            message = error.body.map(e => e.message).join(', ');
+                        }else if (typeof error.body.message === 'string'){
+                            message = error.body.message;
+                        }
+                        this.dispatchEvent(
+                            new ShowToastEvent({
+                                title: 'ASPLOSION',
+                                message, 
+                                variant: 'error',
+                            }),
+                        );
                     });
             })
             .catch(error => {
-                console.log("something blew up");
-                console.log(error);
+                let message= 'Something blew up';
+                        if(Array.isArray(error.body)) { 
+                            message = error.body.map(e => e.message).join(', ');
+                        }else if (typeof error.body.message === 'string'){
+                            message = error.body.message;
+                        }
+                        this.dispatchEvent(
+                            new ShowToastEvent({
+                                title: 'ASPLOSION',
+                                message, 
+                                variant: 'error',
+                            }),
+                        );
             });
         
     }
